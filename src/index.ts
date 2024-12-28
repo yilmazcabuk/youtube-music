@@ -495,7 +495,7 @@ async function createMainWindow() {
     }
   });
 
-  win.webContents.loadURL(urlToLoad);
+  await win.webContents.loadURL(urlToLoad);
 
   return win;
 }
@@ -823,7 +823,7 @@ app.whenReady().then(async () => {
   }
 
   if (config.get('options.hideMenu') && !config.get('options.hideMenuWarned')) {
-    dialog.showMessageBox(mainWindow, {
+    await dialog.showMessageBox(mainWindow, {
       type: 'info',
       title: t('main.dialog.hide-menu-enabled.title'),
       message: t('main.dialog.hide-menu-enabled.message'),

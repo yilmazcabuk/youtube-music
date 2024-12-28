@@ -293,7 +293,7 @@ export const mainMenuTemplate = async (
                           .get('options.themes')
                           ?.filter((t) => t !== theme) ?? [],
                       );
-                      innerRefreshMenu();
+                      await innerRefreshMenu();
                     }
                   },
                 })) ?? []),
@@ -310,7 +310,7 @@ export const mainMenuTemplate = async (
                     });
                     if (filePaths) {
                       config.set('options.themes', filePaths);
-                      innerRefreshMenu();
+                      await innerRefreshMenu();
                     }
                   },
                 },

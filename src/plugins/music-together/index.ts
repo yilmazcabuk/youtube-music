@@ -528,7 +528,7 @@ export default createPlugin<
         rollbackList.forEach((rollback) => rollback());
       };
 
-      this.connection.broadcast('IDENTIFY', {
+      await this.connection.broadcast('IDENTIFY', {
         profile: {
           id: this.connection.id,
           handleId: this.me.handleId,
@@ -537,14 +537,14 @@ export default createPlugin<
         },
       });
 
-      this.connection.broadcast('SYNC_PROFILE', undefined);
-      this.connection.broadcast('PERMISSION', undefined);
+      await this.connection.broadcast('SYNC_PROFILE', undefined);
+      await this.connection.broadcast('PERMISSION', undefined);
 
       this.queue?.clear();
       this.queue?.syncQueueOwner();
       this.queue?.initQueue();
 
-      this.connection.broadcast('SYNC_QUEUE', undefined);
+      await this.connection.broadcast('SYNC_QUEUE', undefined);
 
       return true;
     },
@@ -631,7 +631,11 @@ export default createPlugin<
     start({ ipc }) {
       this.ipc = ipc;
       this.showPrompt = async (title: string, label: string) =>
-        ipc.invoke('music-together:prompt', title, label) as Promise<string>;
+        (await ipc.invoke(
+          'music-together:prompt',
+          title,
+          label,
+        )) as Promise<string>;
       this.api = document.querySelector<AppElement>('ytmusic-app');
 
       /* setup */

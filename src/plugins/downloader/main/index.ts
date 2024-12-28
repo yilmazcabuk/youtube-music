@@ -647,7 +647,7 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
     mkdirSync(playlistFolder, { recursive: true });
   }
 
-  dialog.showMessageBox(win, {
+  await dialog.showMessageBox(win, {
     type: 'info',
     buttons: [
       t('plugins.downloader.backend.dialog.start-download-playlist.buttons.ok'),
